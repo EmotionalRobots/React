@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './App.module.css'
-import Person from './Person/Person'
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 class App extends Component {
   state = {
     persons: [
@@ -11,9 +12,6 @@ class App extends Component {
     showPersons: false
 
   }
-
-
-
   nameChangedHandler = (event, personId) => {
 
     const personIndex = this.state.persons.findIndex(p => {
@@ -44,55 +42,23 @@ class App extends Component {
   }
   render() {
 
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    }
-
     let persons = null;
 
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-
-
-            return (
-              <Person
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                click={() => this.deletePersonHandler(index)}
-                changed={(event) => this.nameChangedHandler(event, person.id)}
-              />
-            )
-          })
-          }
+        <div className={styles.Cockpit}>
+          <Persons
+            persons={this.state.persons}
+            changed={this.nameChangedHandler}
+            clicked={this.deletePersonHandler} />
         </div>
       );
-      style.backgroundColor = 'red';
-
-    }
-    const classes = [];
-
-    if (this.state.persons.length <= 2) {
-      classes.push(styles.red);
-    }
-
-    if (this.state.persons.length <= 1) {
-      classes.push(styles.bold);
     }
 
     // mainRoot
     return (
       <div className={styles.App}>
-        <h1>CHRIS!!Test</h1>
-        <p className={classes.join(' ')}>Testing dynamic classes</p>
-        <button style={style} onClick={this.togglePersonsHanlder}>Switch Name</button>
+      <Cockpit showPersons={this.state.showPersons} persons={this.state.persons} clicked={this.togglePersonsHanlder} />
         {persons}
         <br />
       </div>
