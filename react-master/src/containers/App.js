@@ -46,7 +46,7 @@ class App extends Component {
 
     if (this.state.showPersons) {
       persons = (
-        <div className={styles.Cockpit}>
+        <div>
           <Persons
             persons={this.state.persons}
             changed={this.nameChangedHandler}
